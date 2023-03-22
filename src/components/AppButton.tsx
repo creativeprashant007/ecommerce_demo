@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet, Text,TouchableOpacity} from 'react-native';
 
 export type Props = {
   title: string;
@@ -22,14 +21,12 @@ const AppButton: React.FC<Props> = ({title, onPress, bgColor, textColor}) => {
         alignSelf: 'center',
         marginTop: 50,
       }}
-      onPress={() => {
+      onPress={() => {   
         onPress();
       }}>
       <Text
         style={{color: textColor, alignSelf: 'center', fontSize: 20}}
-        onPress={() => {
-          onPress();
-        }}>
+        >
         {title}
       </Text>
     </TouchableOpacity>

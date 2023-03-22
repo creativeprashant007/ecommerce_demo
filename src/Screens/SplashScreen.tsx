@@ -1,12 +1,18 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
 import React, {NewLifecycle, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('Login' as never);
+    setTimeout(async () => {
+      if ((await AsyncStorage.getItem('LOGIN_STATUS')) == 'true') {
+        navigation.navigate('Home' as never);
+      } else {
+        navigation.navigate('Login' as never);
+      }
     }, 3000);
   });
   return (
