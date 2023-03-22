@@ -5,6 +5,7 @@ import AppInputField from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import {useNavigation} from '@react-navigation/native';
 import ErrorText from '../components/ErrorText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
@@ -37,6 +38,20 @@ const SignupScreen = () => {
     } else {
       setBadPhone(false);
     }
+    console.log('here we are now');
+    saveData();
+  };
+
+  const saveData = async () => {
+    if (!badName && !badEmail && !badPassword && !badPhone) {
+      console.log('here we are now');
+      await AsyncStorage.setItem('NAME', name);
+      await AsyncStorage.setItem('EMAIL', email);
+      await AsyncStorage.setItem('PHONE', phone);
+      await AsyncStorage.setItem('PASSWORD', password);
+      AsyncStorage.setItem('LOGIN_STATUS', 'false');
+      navigation.goBack();
+    }
   };
 
   return (
@@ -47,7 +62,6 @@ const SignupScreen = () => {
         placeHolder={'Enter Name'}
         onchangeText={(txt: string) => {
           setName(txt);
-          validate();
         }}
         value={name}
         isPassword={false}
@@ -59,7 +73,6 @@ const SignupScreen = () => {
         placeHolder={'Enter Email'}
         onchangeText={(txt: string) => {
           setEmail(txt);
-          validate();
         }}
         value={email}
         isPassword={false}
@@ -71,7 +84,6 @@ const SignupScreen = () => {
         placeHolder={'Enter Phone'}
         onchangeText={(txt: string) => {
           setPhone(txt);
-          validate();
         }}
         value={phone}
         isPassword={false}
@@ -83,7 +95,6 @@ const SignupScreen = () => {
         placeHolder={'Enter Password'}
         onchangeText={(txt: string) => {
           setPassword(txt);
-          validate();
         }}
         value={password}
         isPassword={true}

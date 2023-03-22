@@ -1,18 +1,25 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import AppInputField from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import {useNavigation} from '@react-navigation/native';
 import ErrorText from '../components/ErrorText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [badEmail, setBadEmail] = useState(false);
   const [password, setPassword] = useState('');
   const [badPassword, setBadPassword] = useState(false);
-  const validate = () => {
-    console.log(badEmail);
+  const validate = async () => {
     if (email == '') {
       setBadEmail(true);
     } else {
@@ -23,6 +30,18 @@ const LoginScreen = () => {
     } else {
       setBadPassword(false);
     }
+    let storedEmail = await AsyncStorage.getItem('EMAIL');
+    let storedPassword = await AsyncStorage.getItem('PASSWORD');
+    if (!badEmail && !badPassword) {
+      if (storedEmail == email && storedPassword == password) {
+        AsyncStorage.setItem('LOGIN_STATUS', 'true');
+        navigation.navigate('Home' as never);
+      } else if (storedEmail != email) {
+        Alert.alert('Incorrect Email', 'Please Enter Correct Email');
+      } else if (storedPassword != password) {
+        Alert.alert('Incorrect Password', 'Please Enter Correct Password');
+      }
+    }
   };
   return (
     <View>
@@ -32,7 +51,6 @@ const LoginScreen = () => {
         placeHolder={'Enter User Email'}
         onchangeText={(txt: string) => {
           setEmail(txt);
-          validate();
         }}
         value={email}
         isPassword={false}
@@ -44,7 +62,6 @@ const LoginScreen = () => {
         placeHolder={'Enter User Password'}
         onchangeText={(txt: string) => {
           setPassword(txt);
-          validate();
         }}
         value={password}
         isPassword={true}
@@ -55,8 +72,6 @@ const LoginScreen = () => {
       <AppButton
         title={'Login'}
         onPress={() => {
-          console.log('login');
-
           validate();
         }}
         bgColor={'#000'}
