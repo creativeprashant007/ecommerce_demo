@@ -1,12 +1,12 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {NewLifecycle, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 const SplashScreen = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.navigate('Login' as never);
     }, 3000);
   });
   return (
