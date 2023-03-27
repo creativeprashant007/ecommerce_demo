@@ -5,9 +5,12 @@ import CartScreen from '../Bottom/CartScreen';
 import WishListScreen from '../Bottom/WishListScreen';
 import ProfileScreen from '../Bottom/ProfileScreen';
 import MainScreen from '../Bottom/MainScreen';
+import {useSelector} from 'react-redux';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const data: any = useSelector(state => state);
+
   return (
     <View style={styles.mainContainer}>
       {selectedTab == 0 ? (
@@ -52,6 +55,11 @@ const HomeScreen = () => {
               style={styles.bagStyle}
               source={require('../images/bag.png')}
             />
+            <View style={styles.badgeCart}>
+              <Text style={styles.badgeTextCart}>
+                {data.appReducers.length}
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -64,6 +72,11 @@ const HomeScreen = () => {
             style={styles.itemsStyle}
             source={require('../images/heart.png')}
           />
+          <View style={styles.badgeHeart}>
+            <Text style={styles.badgeTextHeart}>
+              {data.appReducersWishlist.length}
+            </Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.items}
@@ -117,4 +130,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  badgeCart: {
+    width: 18,
+    height: 18,
+    backgroundColor: 'red',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 5,
+    right: 5,
+  },
+  badgeHeart: {
+    width: 18,
+    height: 18,
+    backgroundColor: 'red',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 15,
+    right: 15,
+  },
+  badgeTextCart: {color: '#FFF', fontWeight: '600', fontSize: 12},
+  badgeTextHeart: {color: '#FFF', fontWeight: '600', fontSize: 12},
 });

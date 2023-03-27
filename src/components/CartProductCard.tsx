@@ -10,17 +10,18 @@ import {
 
 export type Props = {
   item: any;
-  onAddToCart: any;
+  onRemoveFromCart: any;
   onAddToWishList: any;
 };
 
-const ProductCard: React.FC<Props> = ({item, onAddToCart, onAddToWishList}) => {
+const CartProductCard: React.FC<Props> = ({
+  item,
+  onRemoveFromCart,
+  onAddToWishList,
+}) => {
   return (
     <View style={styles.cardStyle}>
-      {item.image !== '' || item.image !== 'null' || item.image !== null ? (
-        <Image style={styles.imageStyle} source={item.image} />
-      ) : null}
-
+      <Image style={styles.imageStyle} source={item.image} />
       <View style={styles.nameHeartRow}>
         <Text style={styles.textStyle}>{item.name}</Text>
         <TouchableOpacity
@@ -39,9 +40,9 @@ const ProductCard: React.FC<Props> = ({item, onAddToCart, onAddToWishList}) => {
         <TouchableOpacity
           style={styles.addToCart}
           onPress={() => {
-            onAddToCart(item);
+            onRemoveFromCart(item);
           }}>
-          <Text>Add to cart</Text>
+          <Text>Remove from cart</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -50,8 +51,7 @@ const ProductCard: React.FC<Props> = ({item, onAddToCart, onAddToWishList}) => {
 
 const styles = StyleSheet.create({
   cardStyle: {
-    width: 200,
-    height: 200,
+    height: 230,
     borderRadius: 15,
     marginLeft: 10,
     elevation: 5,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: '100%',
-    height: '55%',
+    height: '60%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+export default CartProductCard;

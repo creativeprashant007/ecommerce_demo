@@ -9,7 +9,7 @@ export type Props = {
 const AppHeader: React.FC<Props> = ({title}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyle}>Ecommerce App</Text>
+      <Text style={styles.textStyle}>{title ?? 'Ecommerce App'}</Text>
     </View>
   );
 };

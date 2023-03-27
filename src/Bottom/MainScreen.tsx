@@ -4,8 +4,11 @@ import AppHeader from '../components/Header';
 import {products} from '../data/products';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import ProductCard from '../components/ProductCard';
+import {useDispatch, useSelector} from 'react-redux';
+import {addItemToCart, addItemToWishList} from '../redux/actions/actions';
 
 const MainScreen = () => {
+  const dispatch = useDispatch();
   const [categoryList, setCategoryList] = useState([{}]);
   const [tshirtList, setTshirtList] = useState([{}]);
   const [jeansList, setTJeansshirtList] = useState([{}]);
@@ -19,13 +22,12 @@ const MainScreen = () => {
     setCategoryList(products.category);
     setTshirtList(products.category[0].data);
     setTJeansshirtList(products.category[1].data);
-   
-    
-  });
+  }, []);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <AppHeader title={'Ecommerce App'} />
+    <ScrollView style={styles.container}>
+      <AppHeader title={'Ecommerce App'} />
+      <View style={{marginHorizontal: 20}}>
         <Image style={styles.banner} source={require('../images/banner.png')} />
         <View style={styles.catContainer}>
           <FlatList
@@ -50,7 +52,15 @@ const MainScreen = () => {
             renderItem={({item, index}) => {
               return (
                 <TouchableOpacity>
-                  <ProductCard item={item} />
+                  <ProductCard
+                    item={item}
+                    onAddToCart={(item: any) => {
+                      dispatch(addItemToCart(item));
+                    }}
+                    onAddToWishList={(item: any) => {
+                      dispatch(addItemToWishList(item));
+                    }}
+                  />
                 </TouchableOpacity>
               );
             }}
@@ -65,7 +75,15 @@ const MainScreen = () => {
             renderItem={({item, index}) => {
               return (
                 <TouchableOpacity>
-                  <ProductCard item={item} />
+                  <ProductCard
+                    item={item}
+                    onAddToCart={(item: any) => {
+                      dispatch(addItemToCart(item));
+                    }}
+                    onAddToWishList={(item: any) => {
+                      dispatch(addItemToWishList(item));
+                    }}
+                  />
                 </TouchableOpacity>
               );
             }}
@@ -78,7 +96,7 @@ const MainScreen = () => {
 
 export default MainScreen;
 const styles = StyleSheet.create({
-  container: {flex: 1, marginHorizontal: 20, marginBottom: 80},
+  container: {flex: 1, marginBottom: 80},
   banner: {
     width: '100%',
     height: 200,
