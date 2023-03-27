@@ -12,13 +12,15 @@ const MainScreen = () => {
 
   useEffect(() => {
     console.log(products);
-    let tempCat: any = [];
+    let tempCat = [];
     products.category.map(item => {
       tempCat.push(item);
     });
     setCategoryList(products.category);
     setTshirtList(products.category[0].data);
     setTJeansshirtList(products.category[1].data);
+   
+    
   });
   return (
     <ScrollView>

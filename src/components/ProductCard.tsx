@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: '100%',
-    height: '50%',
+    height: '65%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
+    alignItems:'center',
   },
   price: {
     fontSize: 18,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   heart: {
     width: 40,
