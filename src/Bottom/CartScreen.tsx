@@ -22,6 +22,7 @@ const CartScreen = () => {
       <View style={styles.container}>
         {cartData.length > 0 ? (
           <FlatList
+            style={{height: '100%'}}
             data={cartData}
             renderItem={({item, index}) => {
               return (
@@ -42,7 +43,7 @@ const CartScreen = () => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              height: 300,
+              height: '100%',
             }}>
             <Text style={{color: '#000'}}>No Items Added in cart </Text>
           </View>
@@ -50,7 +51,9 @@ const CartScreen = () => {
         {cartData.length > 0 ? (
           <View>
             <AppButton
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate('Checkout' as never);
+              }}
               title={'Checkout'}
               bgColor={'green'}
               textColor={'#fff'}
@@ -67,5 +70,6 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
     marginTop: 10,
+    marginBottom: 280,
   },
 });
