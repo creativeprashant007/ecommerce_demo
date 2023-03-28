@@ -1,9 +1,24 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
+import globalStyles from '../global/GlobalStyle';
 let name: string = '';
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   useEffect(() => {
+    navigation.setOptions({
+      title: 'Profile',
+      headerRight: () => (
+        <TouchableOpacity>
+          <Image
+            style={globalStyles.settingImage}
+            source={require('../images/settings.png')}
+          />
+        </TouchableOpacity>
+      ),
+    });
+
     getData();
   }, []);
   const getData = async () => {
@@ -11,22 +26,43 @@ const ProfileScreen = () => {
   };
   return (
     <View style={{flex: 1}}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.titleStyle}>Profile</Text>
-        <TouchableOpacity>
-          <Image
-            style={styles.settingImage}
-            source={require('../images/settings.png')}
-          />
-        </TouchableOpacity>
-      </View>
       <Image
         style={styles.profileImage}
-        source={require('../images/profile.png')}
+        source={require('../images/profile_user.png')}
       />
       <Text style={styles.userName}>{name}</Text>
       <View style={{marginHorizontal: 20}}>
-        <TouchableOpacity style={styles.menuStyle}></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuStyle}
+          onPress={() => {
+            navigation.navigate('MyAddress' as never);
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={styles.menuIconStyle}
+              source={require('../images/location.png')}
+            />
+            <Text style={styles.menuTextStyle}>My Addresses</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuStyle} onPress={() => {}}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={styles.menuIconStyle}
+              source={require('../images/orders.png')}
+            />
+            <Text style={styles.menuTextStyle}>My Orders</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuStyle} onPress={() => {}}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={styles.menuIconStyle}
+              source={require('../images/discount.png')}
+            />
+            <Text style={styles.menuTextStyle}>Offers</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,14 +88,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 20,
   },
-  settingImage: {
-    height: 25,
-    width: 25,
-  },
+
   profileImage: {
     alignSelf: 'center',
-    height: 70,
-    width: 70,
+    height: 100,
+    width: 100,
     marginTop: 30,
   },
   userName: {
@@ -75,5 +108,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     marginTop: 20,
     borderBottomColor: '#8e8e8e',
+    justifyContent: 'center',
+  },
+  menuTextStyle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+    textAlign: 'left',
+  },
+  menuIconStyle: {
+    marginTop: 1,
+    height: 20,
+    width: 20,
+    marginRight: 10,
   },
 });

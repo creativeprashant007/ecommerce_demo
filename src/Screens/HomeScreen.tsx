@@ -10,7 +10,20 @@ import {useSelector} from 'react-redux';
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const data: any = useSelector(state => state);
-
+  const itemsStyle = function (index: number, currentIndex: number) {
+    return {
+      height: 24,
+      width: 24,
+      tintColor: index == currentIndex ? '#000' : '#808080',
+    };
+  };
+  const bagStyle = function (index: number, currentIndex: number) {
+    return {
+      height: 24,
+      width: 24,
+      tintColor: index == currentIndex ? '#fff' : '#808080',
+    };
+  };
   return (
     <View style={styles.mainContainer}>
       {selectedTab == 0 ? (
@@ -31,7 +44,7 @@ const HomeScreen = () => {
             setSelectedTab(0);
           }}>
           <Image
-            style={styles.itemsStyle}
+            style={itemsStyle(selectedTab, 0)}
             source={require('../images/home.png')}
           />
         </TouchableOpacity>
@@ -41,7 +54,7 @@ const HomeScreen = () => {
             setSelectedTab(1);
           }}>
           <Image
-            style={styles.itemsStyle}
+            style={itemsStyle(selectedTab, 1)}
             source={require('../images/search.png')}
           />
         </TouchableOpacity>
@@ -52,7 +65,7 @@ const HomeScreen = () => {
               setSelectedTab(2);
             }}>
             <Image
-              style={styles.bagStyle}
+              style={bagStyle(selectedTab, 2)}
               source={require('../images/bag.png')}
             />
             <View style={styles.badgeCart}>
@@ -69,7 +82,7 @@ const HomeScreen = () => {
             setSelectedTab(3);
           }}>
           <Image
-            style={styles.itemsStyle}
+            style={itemsStyle(selectedTab, 3)}
             source={require('../images/heart.png')}
           />
           <View style={styles.badgeHeart}>
@@ -84,7 +97,7 @@ const HomeScreen = () => {
             setSelectedTab(4);
           }}>
           <Image
-            style={styles.itemsStyle}
+            style={itemsStyle(selectedTab, 4)}
             source={require('../images/user.png')}
           />
         </TouchableOpacity>
@@ -113,15 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  itemsStyle: {
-    height: 24,
-    width: 24,
-  },
-  bagStyle: {
-    height: 24,
-    width: 24,
-    tintColor: '#FFF',
-  },
+
   circleItemStyle: {
     width: 50,
     height: 50,

@@ -1,19 +1,23 @@
 import {View, Text, ScrollView, FlatList, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import appReducersWishlist from '../redux/reducers/ReducerWishlist';
 import AppHeader from '../components/Header';
 import CartProductCard from '../components/CartProductCard';
 import WishListProductCard from '../components/WishListProductCard';
 import {addItemToCart, removeFromWishlist} from '../redux/actions/actions';
+import {useNavigation} from '@react-navigation/native';
 
 const WishListScreen = () => {
   const dispatch = useDispatch();
   const [cartList, setCartList] = useState([]);
   const wishListData = useSelector(state => state.appReducersWishlist);
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({title: 'Wishlist'});
+  }, []);
   return (
     <View>
-      <AppHeader title={'Wishlist'} />
       <View style={styles.container}>
         <FlatList
           data={wishListData}
@@ -24,7 +28,9 @@ const WishListScreen = () => {
                 onRemoveFromWishList={() => {
                   dispatch(removeFromWishlist(index));
                 }}
-                onAddToCart  = {()=>{dispatch(addItemToCart(item))}}
+                onAddToCart={() => {
+                  dispatch(addItemToCart(item));
+                }}
               />
             );
           }}

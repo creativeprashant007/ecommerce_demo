@@ -6,14 +6,17 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import ProductCard from '../components/ProductCard';
 import {useDispatch, useSelector} from 'react-redux';
 import {addItemToCart, addItemToWishList} from '../redux/actions/actions';
+import {useNavigation} from '@react-navigation/core';
 
 const MainScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [categoryList, setCategoryList] = useState([{}]);
   const [tshirtList, setTshirtList] = useState([{}]);
   const [jeansList, setTJeansshirtList] = useState([{}]);
 
   useEffect(() => {
+    navigation.setOptions({title: 'Ecommerce App'});
     console.log(products);
     let tempCat = [];
     products.category.map(item => {
@@ -26,7 +29,7 @@ const MainScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <AppHeader title={'Ecommerce App'} />
+      {/* <AppHeader title={'Ecommerce App'} /> */}
       <View style={{marginHorizontal: 20}}>
         <Image style={styles.banner} source={require('../images/banner.png')} />
         <View style={styles.catContainer}>
