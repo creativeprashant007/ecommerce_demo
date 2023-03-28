@@ -68,6 +68,8 @@ const CheckoutScreen = () => {
   );
 };
 
+
+
 export default CheckoutScreen;
 const styles = StyleSheet.create({
   container: {flex: 1, paddingTop: 10, paddingHorizontal: 20, marginBottom: 30},
