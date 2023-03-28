@@ -5,6 +5,7 @@ import globalStyles from '../global/GlobalStyle';
 import {useDispatch, useSelector} from 'react-redux';
 import {FlatList} from 'react-native-gesture-handler';
 import {removeAddress} from '../redux/actions/actions';
+import AddressTile from '../components/AddressTile';
 
 let addressList = [];
 const MyAddressScreen = () => {
@@ -34,21 +35,14 @@ const MyAddressScreen = () => {
         data={addressList}
         renderItem={({item, index}) => {
           return (
-            <View style={styles.itemTileContainer}>
-              <View>
-                <Text>{'City: ' + item.city}</Text>
-                <Text>{'House: ' + item.house}</Text>
-                <Text>{'Pincode: ' + item.pincode}</Text>
-                <Text>{'Address: ' + item.address}</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.deleteButtonStyle}
-                onPress={() => {
-                  dispatch(removeAddress(index));
-                }}>
-                <Text style={styles.deleteText}>Delete</Text>
-              </TouchableOpacity>
-            </View>
+            <AddressTile
+              index={index}
+              item={item}
+              isAddressPage={true}
+              onPress={() => {
+                dispatch(removeAddress(index));
+              }}
+            />
           );
         }}
       />
