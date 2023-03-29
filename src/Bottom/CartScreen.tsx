@@ -57,6 +57,7 @@ const CartScreen = () => {
               title={'Checkout'}
               bgColor={'green'}
               textColor={'#fff'}
+              width={'85%'}
             />
           </View>
         ) : null}
